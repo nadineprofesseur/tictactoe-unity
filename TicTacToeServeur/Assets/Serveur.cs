@@ -34,13 +34,16 @@ public class Serveur : NetworkManager
         {
             connexionX = message.conn;
             Debug.Log("Joueur X connecté");
-            connexionX.Send(MsgType.Scene, new StringMessage("Vous etes le joueur X"));
+            connexionX.Send(MsgType.Scene, new StringMessage("{symbole:x}"));
         }
         else if (null == connexionO)
         {
             connexionO = message.conn;
             Debug.Log("Joueur O connecté");
-            NetworkServer.SendToAll(MsgType.Scene, new StringMessage("Le jeu commence"));
+            connexionO.Send(MsgType.Scene, new StringMessage("{symbole:o}"));
+            this.pret = true;
+            //connexionX.Send(MsgType.Scene, new StringMessage("{tour:x}"));
+            NetworkServer.SendToAll(MsgType.Scene, new StringMessage("{tour:x}"));
         }
         else
         {
