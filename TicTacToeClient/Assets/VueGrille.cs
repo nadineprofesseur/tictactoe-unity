@@ -10,8 +10,6 @@ public class VueGrille : MonoBehaviour, IPointerClickHandler
 
     protected ControleurGrille controleur;
     protected IPanel grillage;
-    //protected Text prototypeSymboleX;
-    //protected Text prototypeSymboleO;
     protected Text[,] coupsDejaJoues;
     UnityEngine.UI.Button case11;
     UnityEngine.UI.Button[,] cases;
@@ -26,8 +24,6 @@ public class VueGrille : MonoBehaviour, IPointerClickHandler
         this.controleur = new ControleurGrille(this);
 
         this.grillage = GameObject.Find("grillage").GetComponent<IPanel>();
-        //this.prototypeSymboleX = GameObject.Find("symbole-x").GetComponent<Text>();
-        //this.prototypeSymboleO = GameObject.Find("symbole-o").GetComponent<Text>();
         this.coupsDejaJoues = new Text[3, 3];
 
         this.cases = new UnityEngine.UI.Button[3, 3];
@@ -51,9 +47,6 @@ public class VueGrille : MonoBehaviour, IPointerClickHandler
         this.cases[1, 2].onClick.AddListener(() => { clicCase(2, 3); });
         this.cases[2, 2] = GameObject.Find("case-3-3").GetComponent<UnityEngine.UI.Button>();
         this.cases[2, 2].onClick.AddListener(() => { clicCase(3, 3); });
-
-
-        this.controleur.tester();
     }
 
     void clicCase(int colonne, int rangee)
@@ -106,55 +99,5 @@ public class VueGrille : MonoBehaviour, IPointerClickHandler
         //this.coupsDejaJoues[rangee, colonne] = symboleO;
     }
     public void OnPointerClick(PointerEventData eventData) { }
-    /*
-     public void afficherCoupX(int rangee, int colonne)
-    {
-        if (rangee < 1 || rangee > 3) return;
-        if (colonne < 1 || colonne > 3) return;
-        rangee = rangee - 1;
-        colonne = colonne - 1;
-
-        //this.prototypeSymboleX.MemberwiseClone(); // Il faut etre dans l'objet
-        Text symboleX = Instantiate(this.prototypeSymboleX);
-        symboleX.rectTransform.parent = this.transform;
-        symboleX.transform.position = new Vector2(DECALAGE_X + LARGEUR * colonne, DECALAGE_Y - HAUTEUR * colonne);
-        this.coupsDejaJoues[rangee, colonne] = symboleX;
-    }
-
-    public void afficherCoupO(int rangee, int colonne)
-    {
-        if (rangee < 1 || rangee > 3) return;
-        if (colonne < 1 || colonne > 3) return;
-        rangee = rangee - 1;
-        colonne = colonne - 1;
-
-        //Text symboleO = Instantiate(this.prototypeSymboleO, this.transform) as Text;
-        Text symboleO = Instantiate(this.prototypeSymboleO);
-        symboleO.rectTransform.parent = this.transform;
-        symboleO.transform.position = new Vector2(DECALAGE_X + LARGEUR * colonne, DECALAGE_Y - HAUTEUR * colonne);
-        this.coupsDejaJoues[rangee, colonne] = symboleO;
-    } 
-    public Vector2 convertirClicEnCase(Vector2 positionClic)
-    {
-        Debug.Log("Position " + positionClic.x + " position " + positionClic.y);
-        positionClic.x = positionClic.x - DECALAGE_X;
-        positionClic.y = -(positionClic.y - DECALAGE_Y);
-        positionClic.x = positionClic.x / (LARGEUR / 1.7f);
-        positionClic.y = positionClic.y / (HAUTEUR / 1.7f);
-        return positionClic;
-    }
-
-    public void OnPointerClick(PointerEventData eventData) // 3
-    {
-        print("Click");
-        Vector2 positionClic = convertirClicEnCase(eventData.position);
-        controleur.reagirClicCase((int)positionClic.x, (int)positionClic.y);
-    }
-
-    void OnMouseDown()
-    {
-        Debug.Log("clic");
-    }
-    */
 
 }
