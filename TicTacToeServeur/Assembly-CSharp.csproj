@@ -54,7 +54,7 @@
      <Compile Include="Assets\Serveur.cs" />
      <Compile Include="Assets\TicTacToeServeur.cs" />
  <Reference Include="Facebook.Unity.Settings">
- <HintPath>C:/Users/Public/Documents/Unity Projects/TicTacToeServeur/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
+ <HintPath>C:/Users/Public/Documents/Unity Projects/tictactoe-unity.git/TicTacToeServeur/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
