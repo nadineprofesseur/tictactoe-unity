@@ -13,22 +13,29 @@ public class Client : NetworkManager
     public Client()
     {
         this.contact = new NetworkClient();
-        this.contact.RegisterHandler(MsgType.Scene, gererMessages);
+        this.contact.RegisterHandler(MsgType.Scene, recevoirMessage);
         this.contact.Connect(HOTE, PORT);
         Client.instance = this;
     }
-    public virtual void gererMessages(NetworkMessage message)
+    public virtual void recevoirMessage(NetworkMessage message)
     {
         string json = message.ReadMessage<StringMessage>().value;
-        Debug.Log("gererMessages " + json);
+        Debug.Log("recevoirMessage " + json);
 
         // version temporaire // TODO interpreteur
-        if (json.CompareTo("{symbole:x}") == 0) ControleurGrille.getInstance().recevoirSymbole('x');
-        if (json.CompareTo("{symbole:o}") == 0) ControleurGrille.getInstance().recevoirSymbole('o');
-        if (json.CompareTo("{tour:x}") == 0) ControleurGrille.getInstance().recevoirTour('x');
+        if (json.CompareTo("{\"symbole\":\"x\"}") == 0) ControleurGrille.getInstance().recevoirSymbole('x');
+        if (json.CompareTo("{\"symbole\":\"o\"}") == 0) ControleurGrille.getInstance().recevoirSymbole('o');
+        if (json.CompareTo("{\"tour\":\"x\"}") == 0) ControleurGrille.getInstance().recevoirTour('x');
+        if (json.CompareTo("{\"tour\":\"o\"}") == 0) ControleurGrille.getInstance().recevoirTour('o');
 
-
+        contact.Send(MsgType.Scene, new StringMessage("Client parle au serveur"));
     }
+
+    public virtual void envoyerMessage(string message)
+    {
+        contact.Send(MsgType.Scene, new StringMessage(message));
+    }
+
     static public Client getInstance()
     {
         return Client.instance;

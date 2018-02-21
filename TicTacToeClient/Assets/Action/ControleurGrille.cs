@@ -14,9 +14,6 @@ public class ControleurGrille
     {
         this.vue.afficherNomO("Jojo");
         this.vue.afficherNomX("Tutu");
-        //this.vue.afficherCoupX(3, 3);
-        //this.vue.afficherCoupO(2, 2);
-        //this.vue.afficherCoupX(1, 1);
     }
 
     static protected ControleurGrille instance = null;
@@ -27,9 +24,14 @@ public class ControleurGrille
 
     public void reagirClicCase(int colonne, int rangee)
     {
-        Debug.Log("colonne " + colonne + " rangee " + rangee);
-        if(this.symbole == 'x') this.vue.afficherCoupX(colonne, rangee);
-        if (this.symbole == 'o') this.vue.afficherCoupO(colonne, rangee);
+        if(this.tourActif)
+        { 
+            Debug.Log("colonne " + colonne + " rangee " + rangee);
+            if(this.symbole == 'x') this.vue.afficherCoupX(colonne, rangee);
+            if (this.symbole == 'o') this.vue.afficherCoupO(colonne, rangee);
+            Client.getInstance().envoyerMessage("{\"coup\":{\"symbole\":\"" + this.symbole+ "\",\"colonne\":" + colonne+ ",\"rangee\":" + rangee+"}}");
+            this.tourActif = false; // TODO faire controler par le serveur ?
+        }
     }
 
     protected char symbole = ' ';
@@ -42,7 +44,8 @@ public class ControleurGrille
     }
     public void recevoirTour(char symboleTour)
     {
-        if (symboleTour == symbole) this.tourActif = false;
-
+        Debug.Log("Recevoir tour " + symboleTour);
+        if (symboleTour == this.symbole) this.tourActif = true;
+        Debug.Log("Est-ce mon tour ? " + this.tourActif);
     }
 }
