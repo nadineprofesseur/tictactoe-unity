@@ -47,6 +47,9 @@ public class VueGrille : MonoBehaviour, IPointerClickHandler
         this.cases[1, 2].onClick.AddListener(() => { clicCase(2, 3); });
         this.cases[2, 2] = GameObject.Find("case-3-3").GetComponent<UnityEngine.UI.Button>();
         this.cases[2, 2].onClick.AddListener(() => { clicCase(3, 3); });
+
+
+        this.controleur.tester();
     }
 
     void clicCase(int colonne, int rangee)
