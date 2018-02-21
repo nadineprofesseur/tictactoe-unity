@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{EC85223C-5F0F-1F9D-B45A-9D9BC3BA2DEC}</ProjectGuid>
+    <ProjectGuid>{72BC6AF4-D2F5-F111-4BD6-3366AD9BD1F4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -51,10 +51,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\ControleurGrille.cs" />
+     <Compile Include="Assets\Action\ControleurGrille.cs" />
+     <Compile Include="Assets\Messagerie\Client.cs" />
+     <Compile Include="Assets\Messagerie\TicTacToeClient.cs" />
      <Compile Include="Assets\VueGrille.cs" />
  <Reference Include="Facebook.Unity.Settings">
- <HintPath>C:/Users/Public/Documents/Unity Projects/TicTacToe/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
+ <HintPath>C:/Users/Public/Documents/Unity Projects/tictactoe-unity.git/TicTacToeClient/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
