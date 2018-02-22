@@ -37,6 +37,14 @@ public class ControleurGrille
     protected char symbole = ' ';
     protected Boolean tourActif = false;
 
+    public void recevoirCoup(Protocole.Coup coup)
+    {
+        if (coup.symbole[0] != this.symbole)
+        {
+            if(coup.symbole[0] == 'x') this.vue.afficherCoupX(coup.colonne, coup.rangee);
+            if(coup.symbole[0] == 'o') this.vue.afficherCoupO(coup.colonne, coup.rangee);
+        }
+    }
     public void recevoirSymbole(char symbole)
     {
         this.symbole = symbole;

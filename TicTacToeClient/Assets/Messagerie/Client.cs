@@ -17,6 +17,9 @@ public class Client : NetworkManager
         this.contact.Connect(HOTE, PORT);
         Client.instance = this;
     }
+
+    System.Text.RegularExpressions.Regex coquilleCoup = new System.Text.RegularExpressions.Regex("^{\"coup\":(.*)}$");
+
     public virtual void recevoirMessage(NetworkMessage message)
     {
         string json = message.ReadMessage<StringMessage>().value;
@@ -28,7 +31,16 @@ public class Client : NetworkManager
         if (json.CompareTo("{\"tour\":\"x\"}") == 0) ControleurGrille.getInstance().recevoirTour('x');
         if (json.CompareTo("{\"tour\":\"o\"}") == 0) ControleurGrille.getInstance().recevoirTour('o');
 
-        contact.Send(MsgType.Scene, new StringMessage("Client parle au serveur"));
+        // https://docs.unity3d.com/Manual/BestPracticeUnderstandingPerformanceInUnity5.html
+        if (json.Contains("{\"coup\":"))
+        {
+            string jsonCoup = coquilleCoup.Match(json).Groups[1].Value;
+            Debug.Log("Coup deballe=" + jsonCoup);
+            Protocole.Coup coup = JsonUtility.FromJson<Protocole.Coup>(jsonCoup);
+            ControleurGrille.getInstance().recevoirCoup(coup);
+        }
+
+        //contact.Send(MsgType.Scene, new StringMessage("Client parle au serveur"));
     }
 
     public virtual void envoyerMessage(string message)
@@ -40,11 +52,4 @@ public class Client : NetworkManager
     {
         return Client.instance;
     }
-
-/*
-    public void Init(NetworkClient client)
-    {
-
-    }
-*/
 }
