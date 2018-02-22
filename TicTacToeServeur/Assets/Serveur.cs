@@ -29,14 +29,6 @@ public class Serveur : NetworkManager
         Debug.Log("Listen " + PORT);
     }
 
-    // https://docs.unity3d.com/Manual/JSONSerialization.html
-    [System.Serializable]
-    public class Coup
-    {
-        public char symbole;
-        public int colonne;
-        public int rangee;
-    };
     System.Text.RegularExpressions.Regex coquilleCoup = new System.Text.RegularExpressions.Regex("^{\"coup\":(.*)}$");
 
     public virtual void recevoirMessage(NetworkMessage message)
@@ -47,9 +39,12 @@ public class Serveur : NetworkManager
         // https://docs.unity3d.com/Manual/BestPracticeUnderstandingPerformanceInUnity5.html
         if (json.Contains("{\"coup\":"))
         {
-            json = coquilleCoup.Match(json).Groups[1].Value;
-            Debug.Log("Coup deballe=" + json);
-            Coup coup = JsonUtility.FromJson<Coup>(json);
+            string jsonCoup = coquilleCoup.Match(json).Groups[1].Value;
+            Debug.Log("Coup deballe=" + jsonCoup);
+            Protocole.Coup coup = JsonUtility.FromJson<Protocole.Coup>(jsonCoup);
+            Debug.Log("Symbole du coup echange = " + coup.symbole);
+            if(coup.symbole[0] == 'x') this.connexionO.Send(MsgType.Scene, new StringMessage(json));
+            if(coup.symbole[0] == 'o') this.connexionX.Send(MsgType.Scene, new StringMessage(json));
         }
     }
     public virtual void gererConnexion(NetworkMessage message)
